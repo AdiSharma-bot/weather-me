@@ -265,3 +265,102 @@ time
 weather_code
 : 
 (7) [45, 3, 1, 45, 45, 3, 80]
+
+/* Article text*/
+
+
+Clear →
+“Clear skies with plenty of sunshine.”
+
+Mainly Clear →
+“Mostly clear with pleasant conditions.”
+
+🌤 Partly Cloudy
+
+Partly Cloudy →
+“A mix of sunshine and passing clouds.”
+
+☁️ Cloudy
+
+Cloudy →
+“Cloudy skies throughout the day.”
+
+🌫 Fog
+
+Foggy →
+“Foggy conditions with reduced visibility.”
+
+Freezing Fog →
+“Cold and foggy with icy conditions.”
+
+🌦 Drizzle
+
+Light Drizzle →
+“Light drizzle drifting through the day.”
+
+Drizzle →
+“Periods of drizzle expected.”
+
+Heavy Drizzle →
+“Persistent drizzle with damp conditions.”
+
+🌧 Rain
+
+Light Rain →
+“Light rain showers at times.”
+
+Rainy →
+“Rainy weather for most of the day.”
+
+Heavy Rain →
+“Heavy rain with wet conditions.”
+
+❄️ Snow / Ice
+
+Light Snow →
+“Light snowfall expected.”
+
+Snowy →
+“Snowy conditions throughout the day.”
+
+Heavy Snow →
+“Heavy snowfall with cold temperatures.”
+
+Snow Flurries →
+“Occasional snow flurries.”
+
+Icy Rain →
+“Icy rain creating slippery conditions.”
+
+Heavy Icy Rain →
+“Severe icy rain expected.”
+
+🌧 Showers
+
+Light Showers →
+“Scattered rain showers.”
+
+Rainy Showers →
+“Intermittent rain showers through the day.”
+
+Heavy Showers →
+“Intense rain showers at times.”
+
+🌨 Snow Showers
+
+Light Snow Showers →
+“Light snow showers possible.”
+
+Heavy Snow Showers →
+“Heavy snow showers expected.”
+
+⛈ Thunderstorms
+
+Thunderstorm →
+“Thunderstorms likely later in the day.”
+
+Thunderstorm (hail) →
+“Stormy conditions with possible hail.”
+
+Heavy Thunderstorm →
+“Severe thunderstorms expected.”
