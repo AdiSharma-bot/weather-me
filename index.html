@@ -6,9 +6,8 @@
     <title>weather-me</title>
   </head>
   <body>
-       
     <main>
-   <div class="background-overlay"></div>
+      <div class="background-overlay"></div>
       <section class="weather-card">
         <header class="current-details">
           <figure>
@@ -20,14 +19,15 @@
           <article class="time-temp-container">
             <time datetime="2025-03-18T15:10"
               ><span class="day">Tuesday</span
-              ><span class="time"> 3:10 PM</span></time
+              ><span class="time">3:10 PM</span></time
             >
             <p class="temp">
               <span class="label">Clear, </span
               ><span class="temperature">35°C</span>
             </p>
             <address>
-              <span class="city">Kathua, </span> <span class="city">India</span>
+              <span class="city">Kathua, </span>
+              <span class="country">India</span>
             </address>
           </article>
           <dl class="rain-visibility">
@@ -73,7 +73,12 @@
             <li class="active">
               <article class="pill pill-1">
                 <p class="forcast-day">TODAY</p>
-                <img src="src/image-assets/icons/sunny-icon.svg" alt="" class="icon" />
+                <img
+                  src="src/image-assets/icons/svg/sunny-icon.svg"
+                  alt=""
+                  class="icon"
+                />
+                <span class="weather-type"></span>
                 <p class="forecast-temprature">35°C</p>
                 <p class="forecast-apparent-temp">15°C</p>
               </article>
@@ -81,7 +86,12 @@
             <li>
               <article class="pill pill-2">
                 <p class="forcast-day">WED</p>
-                <img src="src/image-assets/icons/cloudy.svg" alt="" class="icon" />
+                <img
+                  src="src/image-assets/icons/svg/cloudy.svg"
+                  alt=""
+                  class="icon"
+                />
+                <span class="weather-type"></span>
                 <p class="forecast-temprature">25°C</p>
                 <p class="forecast-apparent-temp">20°C</p>
               </article>
@@ -89,7 +99,12 @@
             <li>
               <article class="pill pill-3">
                 <p class="forcast-day">THU</p>
-                <img src="src/image-assets/icons/drizzle.svg" alt="" class="icon" />
+                <img
+                  src="src/image-assets/icons/svg/drizzle.svg"
+                  alt=""
+                  class="icon"
+                />
+                <span class="weather-type"></span>
                 <p class="forecast-temprature">32°C</p>
                 <p class="forecast-apparent-temp">28°C</p>
               </article>
@@ -97,7 +112,12 @@
             <li>
               <article class="pill pill-4">
                 <p class="forcast-day">FRI</p>
-                <img src="src/image-assets/icons/heavy-rain.svg" alt="" class="icon" />
+                <img
+                  src="src/image-assets/icons/svg/heavy-rain.svg"
+                  alt=""
+                  class="icon"
+                />
+                <span class="weather-type"></span>
                 <p class="forecast-temprature">22°C</p>
                 <p class="forecast-apparent-temp">21°C</p>
               </article>
@@ -105,7 +125,12 @@
             <li>
               <article class="pill pill-5">
                 <p class="forcast-day">SAT</p>
-                <img src="src/image-assets/icons/sunny-icon.svg" alt="" class="icon" />
+                <img
+                  src="src/image-assets/icons/svg/sunny-icon.svg"
+                  alt=""
+                  class="icon"
+                />
+                <span class="weather-type"></span>
                 <p class="forecast-temprature">21°C</p>
                 <p class="forecast-apparent-temp">22°C</p>
               </article>
@@ -113,7 +138,12 @@
             <li>
               <article class="pill pill-6">
                 <p class="forcast-day">SUN</p>
-                <img src="src/image-assets/icons/stormy.svg" alt="" class="icon" />
+                <img
+                  src="src/image-assets/icons/svg/stormy.svg"
+                  alt=""
+                  class="icon"
+                />
+                <span class="weather-type"></span>
                 <p class="forecast-temprature">24°C</p>
                 <p class="forecast-apparent-temp">21°C</p>
               </article>
@@ -121,7 +151,12 @@
             <li>
               <article class="pill pill-7">
                 <p class="forcast-day">MON</p>
-                <img src="src/image-assets/icons/sunny-icon.svg" alt="" class="icon" />
+                <img
+                  src="src/image-assets/icons/svg/partially-cloudy.svg"
+                  alt=""
+                  class="icon"
+                />
+                <span class="weather-type"></span>
                 <p class="forecast-temprature">20°C</p>
                 <p class="forecast-apparent-temp">22°C</p>
               </article>
@@ -129,16 +164,33 @@
           </ul>
         </section>
       </section>
-      <section class="search-container">
+      <section class="search-container hide">
         <label for="search">
-          <input type="search" id="search" name="lists" placeholder="Search">
-          <button type="button" class="search-btn"><img src="src/image-assets/icons/search-icon.png" alt="" /></button>
-          <span><button class="cross-btn"><img src="src/image-assets/icons/cross-icon.svg" alt=""></button></span>
+          <input
+            type="search"
+            id="search"
+            name="lists"
+            placeholder="Search"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+          />
+          <button type="button" class="search-btn">
+            <img src="src/image-assets/icons/search-icon.png" alt="" />
+          </button>
+          <span
+            ><button class="cross-btn">
+              <img
+                src="src/image-assets/icons/svg/cross-icon.svg"
+                alt=""
+              /></button
+          ></span>
         </label>
-        <div class="search-suggestions-container" id="lists">
-        </div>
+        <div class="search-suggestions-container" id="lists"></div>
       </section>
-      <div class="progress"></div>
+
+      <div class="spinner"></div>
     </main>
     <script type="module" src="/src/main.js"></script>
   </body>
