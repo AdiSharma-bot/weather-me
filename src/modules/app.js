@@ -1,7 +1,5 @@
 import Data from "./weather-api";
 
-console.log("Hii from app.js");
-
 class Controller {
     constructor() {
         this.newData = new Data(),
@@ -9,8 +7,6 @@ class Controller {
                 allPlaces: [],
                 selectedPlace: null,
                 selectedPlaceId: null,
-                currentWeatherData: null,
-                weatherType: null,
                 error: null,
                 isLoading: false,
             },
@@ -19,75 +15,117 @@ class Controller {
                 currentTime: null,
                 currentDate: null,
                 currentRain: null,
+                currentPlace: null,
+                currentCountry: null,
+                fullCurrentDate: null,
                 currentVisibility: null,
+                currentWeatherType: null,
                 currentHumidity: null,
                 currentWind: null,
                 currentDay: null,
                 weatherCode: null,
+                isDay: null,
                 forecastTemps: [],
             }
     }
 
-    handleSearchInput(inputElement) {
-        inputElement.addEventListener("input", async () => {
-            try {
-                const inputValue = this.inputElement.value.trim();
-                const results = await this.setSearchResults(inputValue);
-                return results;
-            }
-            catch(error) {
-                this.handleError(error);
-                 console.error("Caught in handleSearchInput:", error);
-                 return;
-            }
-            
-        })
+    async handleSearchInput(inputElement) {
+
+        const inputValue = inputElement.value.trim();
+        const results = await this.setSearchResults(inputValue);
+        return results;
+
     }
 
     async setSearchResults(inputValue) {
-        this.newData.setPlaceData(inputValue);
-        const places = await this.newData.fetchPlacesData();
-        const results = await places.results;
-        if (!results) throw new Error("No array found");
-        this.appState.allPlaces.length = 0;
-        console.log("Empty Place Array:", this.appState.allPlaces);
-        this.appState.allPlaces.push(results);
-        return results;
+        try {
+            this.newData.setPlaceData(inputValue);
+            const places = await this.newData.fetchPlacesData();
+            const results = await places.results;
+            if (!results) console.error("No array found");
+            this.appState.allPlaces.length = 0;
+            this.appState.allPlaces.push(results);
+            return results;
+        } catch (error) {
+            this.handleError(error);
+            return
+        }
+
     }
 
-    async handlePlaceSelection(selectedPlace) {
-        this.newData.setPlaceId(selectedPlace.id);
-        const specificPlace = await this.newData.fetchSpecificPlace();
-        this.appState.selectedPlace = specificPlace;
-        this.appState.selectedPlaceId = specificPlace.id;
-        return specificPlace;
+    setSelectedPlaceId(id) {
+        this.selectedPlaceId = id;
+    }
+
+    setSelectedPlace(place) {
+        this.appState.selectedPlace = place;
+    }
+
+    getSelectedPlace() {
+        return this.appState.selectedPlace;
+    }
+    async handlePlaceSelection() {
+        try {
+            this.newData.setPlaceId(this.selectedPlaceId);
+            const specificPlace = await this.newData.fetchSpecificPlace();
+            this.appState.selectedPlace = specificPlace;
+            this.appState.selectedPlaceId = specificPlace.id;
+            this.weatherDetails.currentCountry = specificPlace.country;
+            if (!specificPlace.admin2) {
+                this.weatherDetails.currentPlace = specificPlace.admin1;
+            } else {
+                this.weatherDetails.currentPlace = specificPlace.admin2;
+            }
+
+            return specificPlace;
+        } catch (error) {
+            this.handleError(error);
+            return
+        }
+
     }
 
     async handleWeatherRequest(selectedPlace) {
-        const longitude = selectedPlace.longitude;
-        const latitude = selectedPlace.latitude;
-        this.newData.setLongitudeAndLatitude(longitude, latitude);
-        const weatherDetails = await this.newData.fetchWeatherData();
-        return weatherDetails;
+        try {
+            const longitude = selectedPlace.longitude;
+            const latitude = selectedPlace.latitude;
+            this.newData.setLongitudeAndLatitude(longitude, latitude);
+            const weatherDetails = await this.newData.fetchWeatherData();
+            return weatherDetails;
+        } catch (error) {
+            this.handleError(error)
+            return;
+        }
+
     }
 
     async processWeatherData(selectedPlace) {
-            this.setLoading(true);
-
+        this.setLoading(true);
+        this.resetWeatherData();
         const weatherDetails = await this.handleWeatherRequest(selectedPlace);
-        console.log("Error weather:", weatherDetails)
         const currentWeatherDetails = weatherDetails.current;
         const forecastWeatherDetails = weatherDetails.daily;
         const trueVisibility = weatherDetails.hourly.visibility[0] / 1000;
 
-        this.weatherDetails.currentVisibility = trueVisibility.toString() + "km";
+        this.weatherDetails.currentVisibility = trueVisibility.toFixed(1).toString() + "km";
         this.setCurrentWeather(currentWeatherDetails);
         this.setForecastWeather(forecastWeatherDetails);
         this.setLoading(false)
-        console.log("Daily Weather Details:", this.weatherDetails.forecastTemps);
         return weatherDetails;
-        
 
+
+    }
+
+    resetWeatherData() {
+        this.weatherDetails.currentTemp = null,
+            this.weatherDetails.currentTime = null,
+            this.weatherDetails.currentDate = null,
+            this.weatherDetails.currentRain = null,
+            this.weatherDetails.currentVisibility = null,
+            this.weatherDetails.currentHumidity = null,
+            this.weatherDetails.currentWind = null,
+            this.weatherDetails.currentDay = null,
+            this.weatherDetails.weatherCode = null
     }
 
     setForecastWeather(temperature) {
@@ -98,13 +136,13 @@ class Controller {
                 feelsLike: temperature.apparent_temperature_max[i],
                 weatherCode: temperature.weather_code[i],
                 date: temperature.time[i],
+                weatherType: this.resolveWeatherType(temperature.weather_code[i]),
                 day: this.getDayName(temperature.time[i])
             };
-            
-            console.log("Forecast Array Length:", this.weatherDetails.forecastTemps)
             this.weatherDetails.forecastTemps.push(foreCastObject);
         }
     }
+
 
     setCurrentWeather(temperature) {
         this.weatherDetails.currentTemp = temperature.temperature_2m;
@@ -114,13 +152,15 @@ class Controller {
         this.weatherDetails.currentRain = temperature.rain;
         this.weatherDetails.currentWind = temperature.wind_speed_10m;
         this.weatherDetails.weatherCode = temperature.weather_code;
+        this.weatherDetails.fullCurrentDate = temperature.time
         this.weatherDetails.currentDay = this.getDayName(temperature.time.slice(0, 10));
-        const weatherType = this.resolveWeatherType(temperature.weather_code);
-        console.log("Weather Type:", weatherType);
+        this.weatherDetails.isDay = temperature.is_day;
+        this.weatherDetails.currentWeatherType = this.resolveWeatherType(this.weatherDetails.weatherCode);
+
+
     }
 
     getWeatherDetails() {
-        console.log("Weather Details-2", this.weatherDetails);
         return this.weatherDetails;
     }
 
@@ -130,8 +170,7 @@ class Controller {
     }
 
     handleError(error) {
-        console.log("Error handling done")
-        console.error("App Error:", error);
+        alert(`App ${error}`);
 
         this.setLoading(false);
         this.appState.error = error.message;
@@ -203,6 +242,5 @@ class Controller {
     }
 
 }
-
 
 export default Controller
