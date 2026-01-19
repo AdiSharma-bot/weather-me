@@ -1,11 +1,10 @@
 section.search-container {
-
   width: 35%;
   position: absolute;
   top: 10rem;
   z-index: 5;
   height: 50%;
-  
+  transition: all 300ms ease-in;
   & input {
     width: 100%;
     height: 10%;
@@ -16,6 +15,7 @@ section.search-container {
     background: rgba(255, 255, 255, 0.02);
     backdrop-filter: blur(5px);
     padding-left: 1rem;
+    text-transform: capitalize;
     color: white;
     border: 1px solid rgba(255, 255, 255, 0.5);
     -webkit-backdrop-filter: blur(7px);
@@ -29,7 +29,6 @@ section.search-container {
       display: none;
     }
 
-    
     &::before {
       content: "";
       position: absolute;
@@ -45,9 +44,9 @@ section.search-container {
       );
     }
     &::placeholder {
-        padding-left: 1.5rem;
-        font-size: 1.2rem;
-        color: rgba(255, 255, 255, 0.4);
+      padding-left: 1.5rem;
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.4);
     }
     &::after {
       content: "";
@@ -68,34 +67,35 @@ section.search-container {
     }
   }
   & button {
-      position: absolute;
-      background-color: transparent;
-      z-index: 1;
-      height: 2.2rem;
-      right: 0;
-      border: none;
-      padding-left: 2rem;
-      transform: translateX(-40px);
-      transition: transform 200ms ease-in-out;
-      opacity: 80%;
-      &:hover {
-        transform: scale(1.1) translateX(-40px);
-        
-      }
-      &:active {
-        transform: scale(0.9) translateX(-40px);
-      }
-      & img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-      }
+    position: absolute;
+    background-color: transparent;
+    z-index: 1;
+    height: 2.2rem;
+    right: 0;
+    border: none;
+    padding-left: 2rem;
+    transform: translateX(-40px);
+    transition: transform 200ms ease-in-out;
+    opacity: 80%;
+    &:hover {
+      transform: scale(1.1) translateX(-40px);
     }
+    &:active {
+      transform: scale(0.9) translateX(-40px);
+    }
+    & img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
   & div {
     border: 1px solid red;
     margin-top: 1.5rem;
     overflow: auto;
     position: relative;
+    display: flex;
+    flex-direction: column;
     z-index: 1;
     height: 60%;
     border-radius: 15px;
@@ -109,6 +109,10 @@ section.search-container {
       -1.86px -1.73px 12px -9px rgba(0, 0, 0, 0.07),
       inset 1.96px 1.83px 8.44px 0px rgba(255, 255, 255, 0.15),
       inset 1.03px 0.96px 4.22px 0 rgba(255, 255, 255, 0.15);
+      &.hide {
+        visibility: hidden !important;
+      }
+      
     &::before {
       content: "";
       position: absolute;
@@ -139,41 +143,57 @@ section.search-container {
       );
     }
     & button {
-        border: none;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-        background-color: transparent;
-        width: 100%;
-        text-align: start;
-        overflow: hidden;
-        color: rgba(255, 255, 255, 1);
-        padding-left: 1rem;
-        margin-top: 1rem;
-        
+      all: initial;
+      border: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+      background-color: transparent;
+      width: 100%;
+      text-align: start;
+      overflow: hidden;
+      font-family: var(--font-family);
+      color: rgba(255, 255, 255, 1);
+      padding-left: 1rem;
+      padding: 1rem 0rem 2rem 1rem;
+      transition: background 200ms ease-in;
+      &:hover {
+        background: rgba(255, 255, 255, 0.45);
+        transform: none;
+      }
+      &:active {
+        transform: none;
+      }
     }
   }
   & button.cross-btn {
-      position: absolute;
-      width: 4rem;
-      height: 3.5rem;
-      top: -0.9rem;
-      padding: 0;
-      transform: none;
-      &:hover {
-        transform: scale(1.1);
-
-      }
-      &:active {
-        transform: scale(0.9);
-      }
-    }
-}
-div.background-overlay {
-    width: 100%;
-    height: 100%;
     position: absolute;
-    background-color: black;
-    z-index: 2;
-    opacity: 50%;
-    display: none;
-
+    width: 4rem;
+    height: 3.5rem;
+    top: -0.9rem;
+    padding: 0;
+    transform: none;
+    &:hover {
+      transform: scale(1.1);
+    }
+    &:active {
+      transform: scale(0.9);
+    }
+  }
+}
+section.hide {
+    opacity: 0 !important;
+    visibility: hidden !important;
+  }
+div.background-overlay {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: black;
+  z-index: 2;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 300ms ease-in;
+}
+div.show {
+  opacity: 50%;
+  visibility: visible;
 }
