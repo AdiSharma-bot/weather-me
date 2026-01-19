@@ -10,8 +10,6 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
-src/image-assets/
-public/background-images/
 *.local
 
 # Editor directories and files
