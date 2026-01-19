@@ -189,7 +189,7 @@ class WeatherUI {
     async manageWeatherSelection() {
         this.showLoader();
         const selectedPlace = this.newController.getSelectedPlace();
-        const weather = await this.newController.processWeatherData(selectedPlace);
+        await this.newController.processWeatherData(selectedPlace);
         const weatherDetails = this.newController.getWeatherDetails();
 
         this.renderWeatherDetails(weatherDetails);
@@ -276,7 +276,7 @@ class WeatherUI {
 
 
     getWeatherIcons(weather, variant = "current") {
-        const basePath = variant === "forecast" ? "src/image-assets/icons/svg/" : "src/image-assets/icons/";
+        const basePath = variant === "forecast" ? `${import.meta.env.BASE_URL}src/image-assets/icons/svg/` : `${import.meta.env.BASE_URL}src/image-assets/icons/`;
         switch (weather) {
             case "Clear":
             case "Mainly Clear":
@@ -346,66 +346,66 @@ class WeatherUI {
 
     // weather themes
 
-    
+
     getWeatherBackgrounds() {
         const themes = {
             rainyDay: [{
                 textColor: "#ffffff",
                 solidBg: "#0F4A00",
-                bgImage: "/background-images/morn-rainy-1.png",
+                bgImage: `${import.meta.env.BASE_URL}/background-images/morn-rainy-1.png`,
             }],
             rainyNight: [{
                 textColor: "#ffffff",
                 solidBg: "#081433",
-                bgImage: "/background-images/night-rainy.png"
+                bgImage: `${import.meta.env.BASE_URL}/background-images/night-rainy.png`
             },
             {
                 textColor: "#ffffff",
                 solidBg: "#0C1726",
-                bgImage: "/background-images/nighty-nighty-rainy.png"
+                bgImage: `${import.meta.env.BASE_URL}/background-images/nighty-nighty-rainy.png`
             }
             ],
             clearNights: [{
                 textColor: "#ffffff",
                 solidBg: "#0C1959",
-                bgImage: "/background-images/night.png"
+                bgImage: `${import.meta.env.BASE_URL}/background-images/night.png`
             }, {
                 textColor: "#ffffff",
                 solidBg: "#10324F",
-                bgImage: "/background-images/night-2.png"
+                bgImage: `${import.meta.env.BASE_URL}/background-images/night-2.png`
             }],
             snowyNight: [{
                 textColor: "#fff",
                 solidBg: "#10324F",
-                bgImage: "/background-images/night-winter.png"
+                bgImage: `/background-images/night-winter.png`
             }],
             clearDay: [{
                 textColor: "#2a1a00",
                 solidBg: "#BD6E00",
-                bgImage: "/background-images/sunny-evening.png"
+                bgImage: `${import.meta.env.BASE_URL}/background-images/sunny-evening.png`
             }, {
                 textColor: "#2a1a00",
                 solidBg: "#036696",
-                bgImage: "/background-images/sunny-kids-at-park.png"
+                bgImage: `${import.meta.env.BASE_URL}/background-images/sunny-kids-at-park.png`
             }],
             snowyDay: [{
                 textColor: "#2a1a00",
                 solidBg: "#5F839E",
-                bgImage: "/background-images/winter-sunny.png"
+                bgImage: `${import.meta.env.BASE_URL}/background-images/winter-sunny.png`
             }, {
                 textColor: "#2a1a00",
                 solidBg: "#5F839E",
-                bgImage: "/background-images/snowy.png"
+                bgImage: `${import.meta.env.BASE_URL}/background-images/snowy.png`
             }],
             cloudyDay: [{
                 textColor: "#2a1a00",
                 solidBg: "#5F839E",
-                bgImage: "/background-images/cloudy.png",
+                bgImage: `${import.meta.env.BASE_URL}/background-images/cloudy.png`,
             }],
             cloudyNight: [{
                 textColor: "#fff",
                 solidBg: "#202F4F",
-                bgImage: "/background-images/cloudy-night.png"
+                bgImage: `${import.meta.env.BASE_URL}/background-images/cloudy-night.png`
             }]
         }
         return themes;
@@ -416,6 +416,7 @@ class WeatherUI {
         const paraElement = this.weatherCardElements.weatherArticleElement.querySelector("p");
         paraElement.textContent = `${text}`;
     }
+
     getWeatherText(weatherType) {
         switch (weatherType) {
             case "Clear":
