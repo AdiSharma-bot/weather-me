@@ -276,7 +276,7 @@ class WeatherUI {
 
 
     getWeatherIcons(weather, variant = "current") {
-        const basePath = variant === "forecast" ? `${import.meta.env.BASE_URL}src/image-assets/icons/svg/` : `${import.meta.env.BASE_URL}src/image-assets/icons/`;
+        const basePath = variant === "forecast" ? `${import.meta.env.BASE_URL}/image-assets/icons/svg/` : `${import.meta.env.BASE_URL}/image-assets/icons/`;
         switch (weather) {
             case "Clear":
             case "Mainly Clear":
