@@ -25,13 +25,13 @@ class Data {
 
     dataCheck(condition, errorMessage) {
         if (!condition) {
-            throw new Error(errorMessage)
+            console.error(errorMessage)
         }
     }
 
     async responseCheck(response) {
       if (!response.ok) {
-        throw new Error(`API failed with status ${response.status}`);
+        console.error(`API failed with status ${response.status}`);
         
       }  
       
