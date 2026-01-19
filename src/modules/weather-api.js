@@ -1,5 +1,3 @@
-console.log("Hello from weather-api.js")
-
 class Data {
 
     constructor() {
