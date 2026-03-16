@@ -512,7 +512,7 @@ class WeatherUI {
         } else if (weatherCategory === "Snow") {
             themeKey = time === "day" ? "snowyDay" : "snowyNight";
         } else if (weatherCategory === "Clear") {
-            themeKey = time === "day" ? "clearDay" : "clearNight";
+            themeKey = time === "day" ? "clearDay" : "clearNights";
         } else if (weatherCategory === "Cloudy") {
             themeKey = time === "day" ? "cloudyDay" : "cloudyNight"
         }
